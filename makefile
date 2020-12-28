@@ -1,3 +1,5 @@
+build/libalgorithm.a:
+
 build/libvector.a:
 
 build/test:
