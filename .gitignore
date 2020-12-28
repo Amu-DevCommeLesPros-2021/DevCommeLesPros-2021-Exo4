@@ -1,0 +1,6 @@
+.vscode/settings.json
+build/**
+evaluation/**
+!evaluation/evaluate.py
+!evaluation/main.c
+db_modifiee.txt
