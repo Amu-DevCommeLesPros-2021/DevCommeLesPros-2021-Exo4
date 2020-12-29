@@ -235,6 +235,43 @@ int main()
         }
     }
 
+    // Tests pour les fonction 'rotate' et 'reverse'.
+    {
+         vector linear_suite = make_vector(sizeof(int), 5, growth_factor_doubling);
+
+        // linear_suite = [6, 7, 8, 9, 10]
+        generate(begin(&linear_suite), end(&linear_suite), counter);
+
+        // linear_suite = [7, 8, 9, 10, 6]
+        iterator second = begin(&linear_suite);
+        increment(&second, 1);
+        iterator i = rotate(begin(&linear_suite), second, end(&linear_suite));
+
+        TEST(*(int*)value(at(&linear_suite, 0)) == 7);
+        TEST(*(int*)value(at(&linear_suite, 1)) == 8);
+        TEST(*(int*)value(at(&linear_suite, 4)) == 6);
+
+        iterator last = end(&linear_suite);
+        decrement(&last, 1);
+        TEST(compare(i, last) == 0);
+
+        // linear_suite = [10, 6, 7, 8, 9]
+        iterator fourth = begin(&linear_suite);
+        increment(&fourth, 3);
+        rotate(begin(&linear_suite), fourth, end(&linear_suite));
+
+        TEST(*(int*)value(at(&linear_suite, 0)) == 10);
+        TEST(*(int*)value(at(&linear_suite, 1)) == 6);
+        TEST(*(int*)value(at(&linear_suite, 4)) == 9);
+
+        // linear_suite = [9, 8, 7, 6, 10]
+        reverse(begin(&linear_suite), end(&linear_suite));
+
+        TEST(*(int*)value(at(&linear_suite, 0)) == 9);
+        TEST(*(int*)value(at(&linear_suite, 1)) == 8);
+        TEST(*(int*)value(at(&linear_suite, 4)) == 10);
+    }
+
     destroy(&even_suite);
     destroy(&strings);
 

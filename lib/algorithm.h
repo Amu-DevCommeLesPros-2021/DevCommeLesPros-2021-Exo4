@@ -66,13 +66,14 @@ iterator transform(iterator first, iterator last, iterator destination, void (*u
 // La fonction 'generator' est appellée une fois pour chaque élément.
 void generate(iterator first, iterator last, void* (*generator)());
 
-// Inverse l'ordre des éléments entre 'first' et 'last' non-inclus.
-void reverse(iterator first, iterator last);
-
 // Opère une rotation des éléments entre 'first' et 'last' non-inclus de sorte 
-// que l'élément à 'n_first' se retrouve en premier.
+// que l'élément à 'n_first' se retrouve en premier et l'élément précédent 'n_first' 
+// se retrouve en dernier.
 // Renvoie l'élément auquel 'first' fait référence une fois la rotation opérée.
 iterator rotate(iterator first, iterator n_first, iterator last);
+
+// Inverse l'ordre des éléments entre 'first' et 'last' non-inclus.
+void reverse(iterator first, iterator last);
 
 // Trie les éléments entre 'first' et 'last' non-inclus.
 void sort(iterator first, iterator last);

@@ -54,13 +54,13 @@ iterator transform(iterator first, iterator last, iterator destination, void (*u
 void generate(iterator first, iterator last, void* (*generator)())
 {}
 
-void reverse(iterator first, iterator last)
-{}
-
 iterator rotate(iterator first, iterator n_first, iterator last)
 {
-    return n_first;
+    return last;
 }
+
+void reverse(iterator first, iterator last)
+{}
 
 void sort(iterator first, iterator last)
 {}
