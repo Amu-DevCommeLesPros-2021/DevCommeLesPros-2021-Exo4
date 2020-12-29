@@ -21,3 +21,8 @@ bool only_vowels(void const* data);
 // Présume que 'data' contient un 'bool'.
 // Modifie la valeur de 'data' pour son contraire.
 void negate(void* data);
+
+// Présume que 'data' contient une chaîne de caractères terminée par '\0'.
+// Modifie la chaîne donnée avec les minuscules changées pour des majuscules et 
+// les majuscules changées pour des minuscules.
+void flip_case(void* data);

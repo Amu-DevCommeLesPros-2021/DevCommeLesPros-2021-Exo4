@@ -24,3 +24,6 @@ bool only_vowels(void const* data)
 
 void negate(void* data)
 {}
+
+void flip_case(void* data)
+{}

@@ -55,10 +55,11 @@ void fill(iterator first, iterator last, void const* data);
 // Modifie la valeur des éléments entre 'first' et 'last' non-inclus en 
 // appliquant la fonction 'unary_operation' et copie le résultat dans l'élément 
 // de 'destination'.
+// Les valeurs entre 'first' et 'last' reste inchangées.
 // L'itérateur 'destination' est incrémenté de 1 à chaque fois.
 // On présume que la destination est de taille suffisante.
 // Renvoie l'itérateur 'destination' final.
-iterator transform(iterator first, iterator last, iterator destination, void* (*unary_operation)(void* data));
+iterator transform(iterator first, iterator last, iterator destination, void (*unary_operation)(void* data));
 
 // Copie ce que la fonction 'generator' renvoie à tout les éléments de 'first' à 
 // 'last' non-inclus.

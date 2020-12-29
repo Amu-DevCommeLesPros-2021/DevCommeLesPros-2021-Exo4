@@ -46,7 +46,7 @@ iterator copy_if(iterator first, iterator last, iterator destination, bool (*pre
 void fill(iterator first, iterator last, void const* data)
 {}
 
-iterator transform(iterator first, iterator last, iterator destination, void* (*unary_operation)(void* data))
+iterator transform(iterator first, iterator last, iterator destination, void (*unary_operation)(void* data))
 {
     return destination;
 }

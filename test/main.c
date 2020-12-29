@@ -89,12 +89,13 @@ int main()
         n *= 2;
     }
 
-    // strings = ["Aboie", "Eau", "Banane"]
-    vector strings = make_vector(sizeof(char[10]), 0, growth_factor_doubling);
+    // strings = ["Peau", "Eau", "Peau de Banane"]
+    size_t const longueur_chaine = 32;
+    vector strings = make_vector(sizeof(char[longueur_chaine]), 0, growth_factor_doubling);
 
-    push_back(&strings, "Aboie");
+    push_back(&strings, "Peau");
     push_back(&strings, "Eau");
-    push_back(&strings, "Banane");
+    push_back(&strings, "Peau de Banane");
 
 
     // Tests des fonctions 'all_of', 'any_of' et 'none_of'.
@@ -181,7 +182,7 @@ int main()
         TEST(*(int*)value(at(&small_even_suite, 0)) == *(int*)value(at(&even_suite, 0)));
         TEST(*(int*)value(at(&small_even_suite, 1)) == *(int*)value(at(&even_suite, 1)));
 
-        vector just_vowels = make_vector(sizeof(char[10]), 1, growth_factor_doubling);
+        vector just_vowels = make_vector(sizeof(char[longueur_chaine]), 1, growth_factor_doubling);
         copy_if(begin(&strings), end(&strings), begin(&just_vowels), only_vowels);
 
         TEST(strcmp((char*)value(at(&strings, 1)), (char*)value(at(&just_vowels, 0))) == 0);
@@ -205,6 +206,21 @@ int main()
             TEST(*(int*)value(at(&tens_and_twenties, n)) == 20);
         }
 
+    }
+
+    // Tests de la fonction 'transform'.
+    {
+        vector bizarro = make_vector(sizeof(char[longueur_chaine]), size(strings), growth_factor_doubling);
+
+        transform(begin(&strings), end(&strings), begin(&bizarro), flip_case);
+        TEST(strcmp((char*)value(at(&bizarro, 0)), "pEAU") == 0);
+        TEST(strcmp((char*)value(at(&bizarro, 1)), "eAU") == 0);
+        TEST(strcmp((char*)value(at(&bizarro, 2)), "pEAU DE bANANE") == 0);
+
+        // 'strings' doit rester intact.
+        TEST(strcmp((char*)value(at(&strings, 0)), "Peau") == 0);
+        TEST(strcmp((char*)value(at(&strings, 1)), "Eau") == 0);
+        TEST(strcmp((char*)value(at(&strings, 2)), "Peau de Banane") == 0);
     }
 
     destroy(&even_suite);
