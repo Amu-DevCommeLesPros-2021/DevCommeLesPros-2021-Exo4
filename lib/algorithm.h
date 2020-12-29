@@ -22,7 +22,7 @@ bool none_of(iterator first, iterator last, bool (*predicate)(void const* data))
 
 // Applique la fonction 'unary_operation' tout les éléments de 
 // 'first' à 'last' non-inclus.
-void for_each(iterator first, iterator last, bool (*unary_operation)(void* data));
+void for_each(iterator first, iterator last, void (*unary_operation)(void* data));
 
 // Renvoie le nombre d'éléments de 'first' à 'last' non-inclus pour lesquels
 // 'unaray_operation(i->element)' renvoie 'vrai'.

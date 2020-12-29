@@ -20,7 +20,7 @@ bool none_of(iterator first, iterator last, bool (*predicate)(void const* data))
     return false;
 }
 
-void for_each(iterator first, iterator last, bool (*unary_operation)(void* data))
+void for_each(iterator first, iterator last, void (*unary_operation)(void* data))
 {}
 
 size_t count_if(iterator first, iterator last, bool (*unary_operation)(void* data))

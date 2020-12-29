@@ -1,4 +1,5 @@
 #include "algorithm.h"
+#include "functions.h"
 #include "vector.h"
 
 #include <ctype.h>
@@ -65,32 +66,6 @@ void segfault_sigaction(int signal, siginfo_t *si, void *arg)
     exit(tests_executed - tests_successful);
 }
 
-// Présume que 'data' contient un 'int'.
-bool is_even(void const* data)
-{
-    return *(int*)data % 2 == 0;
-}
-
-// Présume que 'data' contient un 'int'.
-bool less_than_five(void const* data)
-{
-    return *(int*)data < 5;
-}
-
-// Présume que 'data' contient une chaîne de caractères.
-bool only_vowels(void const* data)
-{
-    for(char c = tolower(*(char*)data); c != '\0'; c = tolower(*(char*)++data))
-    {
-        if(!(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y'))
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 int main()
 {
     // Mise en place de la fonction à exécuter lors d'une segmentation fault.
@@ -129,9 +104,9 @@ int main()
 
         vector strings = make_vector(sizeof(char[10]), 3, growth_factor_doubling);
 
-        set(at(&strings, 0), "abcde");
-        set(at(&strings, 1), "aaaaaaaa");
-        set(at(&strings, 2), "banane");
+        set(at(&strings, 0), "Aboie");
+        set(at(&strings, 1), "Eau");
+        set(at(&strings, 2), "Banane");
 
         b = begin(&strings), e = end(&strings);
         TEST(all_of(b, e, only_vowels) == false);
@@ -139,6 +114,32 @@ int main()
         TEST(none_of(b, e, only_vowels) == false);
 
         destroy(&strings);
+    }
+
+    // Tests de lea focntion 'for_each'.
+    {
+        vector on_off_on_off = make_vector(sizeof(bool), 0, growth_factor_doubling);
+
+        // on_off_on_off = [true, false, true, false]
+        bool flip = true;
+        push_back(&on_off_on_off, &flip);
+        flip = false;
+        push_back(&on_off_on_off, &flip);
+        flip = true;
+        push_back(&on_off_on_off, &flip);
+        flip = false;
+        push_back(&on_off_on_off, &flip);
+
+        // on_off_on_off = [false, true, false, true]
+        iterator b = begin(&on_off_on_off), e = end(&on_off_on_off);
+        for_each(b, e, negate);
+
+        TEST(*(bool*)value(at(&on_off_on_off, 0)) == false);
+        TEST(*(bool*)value(at(&on_off_on_off, 1)) == true);
+        TEST(*(bool*)value(at(&on_off_on_off, 2)) == false);
+        TEST(*(bool*)value(at(&on_off_on_off, 3)) == true);
+
+        destroy(&on_off_on_off);
     }
 
     print_summary();
