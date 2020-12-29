@@ -187,6 +187,26 @@ int main()
         TEST(strcmp((char*)value(at(&strings, 1)), (char*)value(at(&just_vowels, 0))) == 0);
     }
 
+    // Tests de la fonction 'fill'.
+    {
+        vector tens_and_twenties = make_vector(sizeof(int), 6, growth_factor_doubling);
+
+        int const ten = 10, twenty = 20;
+        iterator half_way = at(&tens_and_twenties, size(tens_and_twenties) / 2);
+        fill(begin(&tens_and_twenties), half_way, &ten);
+        fill(half_way, end(&tens_and_twenties), &twenty);
+
+        for(size_t n = 0; n != size(tens_and_twenties) / 2; ++n)
+        {
+            TEST(*(int*)value(at(&tens_and_twenties, n)) == 10);
+        }
+        for(size_t n = size(tens_and_twenties) / 2; n != size(tens_and_twenties); ++n)
+        {
+            TEST(*(int*)value(at(&tens_and_twenties, n)) == 20);
+        }
+
+    }
+
     destroy(&even_suite);
     destroy(&strings);
 
