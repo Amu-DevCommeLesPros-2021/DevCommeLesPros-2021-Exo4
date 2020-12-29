@@ -272,6 +272,44 @@ int main()
         TEST(*(int*)value(at(&linear_suite, 4)) == 10);
     }
 
+    // Tests des fonctions 'sort' et 'sort_by'.
+    {
+        // numbers = [99, 22, 22, 0, 0]
+        vector numbers = make_vector(sizeof(int), 0, growth_factor_doubling);
+        int n = 99;
+        push_back(&numbers, &n);
+        n = 22;
+        push_back(&numbers, &n);
+        n = 22;
+        push_back(&numbers, &n);
+        n = 0;
+        push_back(&numbers, &n);
+        n = 0;
+        push_back(&numbers, &n);
+        
+
+        // numbers = [0, 0, 22, 22, 99]
+        sort(begin(&numbers), end(&numbers));
+        TEST(*(int*)value(at(&numbers, 0)) == 0);
+        TEST(*(int*)value(at(&numbers, 2)) == 22);
+        TEST(*(int*)value(at(&numbers, 4)) == 99);
+
+
+        // sorted_strings = strings
+        vector sorted_strings = make_vector(sizeof(char[longueur_chaine]), size(strings), growth_factor_doubling);
+        copy(begin(&strings), end(&strings), begin(&sorted_strings));
+        
+        // sorted_strings = ["Eau", "Peau", "Peau de Banane"]
+        sort_by(begin(&sorted_strings), end(&sorted_strings), lexicographical_compare);
+
+        TEST(strcmp((char*)value(at(&sorted_strings, 0)), "Eau") == 0);
+        TEST(strcmp((char*)value(at(&sorted_strings, 1)), "Peau") == 0);
+        TEST(strcmp((char*)value(at(&sorted_strings, 2)), "Peau de Banane") == 0);
+
+        destroy(&numbers);
+        destroy(&sorted_strings);
+    }
+
     destroy(&even_suite);
     destroy(&strings);
 

@@ -29,3 +29,10 @@ void flip_case(void* data);
 
 // Renvoie le nombre renoyé précédement incrémenté de 1.
 void* counter();
+
+// Présume que 'a' et 'b' contiennent des chaînes de caractères terminée par '\0'.
+// Renvoie un nombre négatif si 'a' précède 'b' dans l'ordre lexicographique.
+// Renvoie un nombre positif si 'b' précède 'a' dans l'ordre lexicographique.
+// Renvoie zéro si 'a' et 'b' sont identiques.
+// P. ex. : 'compare("banane", "bananeraie")' -> négatif.
+int lexicographical_compare(void const* a, void const* b);

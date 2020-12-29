@@ -62,7 +62,15 @@ iterator rotate(iterator first, iterator n_first, iterator last)
 void reverse(iterator first, iterator last)
 {}
 
+int compare_int(const void* a, const void* b)
+{
+    return *(int*)a - *(int*)b;
+}
+
 void sort(iterator first, iterator last)
+{}
+
+void sort_by(iterator first, iterator last, int (*compare)(void const* a, void const* b))
 {}
 
 iterator unique(iterator first, iterator last)

@@ -75,8 +75,13 @@ iterator rotate(iterator first, iterator n_first, iterator last);
 // Inverse l'ordre des éléments entre 'first' et 'last' non-inclus.
 void reverse(iterator first, iterator last);
 
-// Trie les éléments entre 'first' et 'last' non-inclus.
+// Trie les éléments entre 'first' et 'last' non-inclus en comparant avec '<'.
 void sort(iterator first, iterator last);
+
+// Trie les éléments entre 'first' et 'last' non-inclus en comparant avec 
+// la fonction donnée. 'compare(a, b)' renvoie un nombre négatif si 'a' précède 'b',
+// renvoie un nombre positif si 'b' précède 'a' et renvoie zéro si 'a' égale 'b'.
+void sort_by(iterator first, iterator last, int (*compare)(void const* a, void const* b));
 
 // Déplace tout les duplicata des éléments entre 'first' et 'last' non-inclus 
 // à la fin de l'intervalle.

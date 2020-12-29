@@ -34,3 +34,8 @@ void* counter()
     ++c;
     return &c;
 }
+
+int lexicographical_compare(void const* a, void const* b)
+{
+    return 0;
+}
