@@ -78,18 +78,27 @@ int main()
 
     float const growth_factor_doubling = 2.;
 
+    // Quelques vecteurs qui seront réutilisés pour les tests.
+
+    // even_suite = [2, 4, 8]
+    vector even_suite = make_vector(sizeof(int), 3, growth_factor_doubling);
+    int n = 2;
+    for(iterator i = begin(&even_suite); compare(i, end(&even_suite)) != 0; increment(&i, 1))
+    {
+        set(i, &n);
+        n *= 2;
+    }
+
+    // strings = ["Aboie", "Eau", "Banane"]
+    vector strings = make_vector(sizeof(char[10]), 0, growth_factor_doubling);
+
+    push_back(&strings, "Aboie");
+    push_back(&strings, "Eau");
+    push_back(&strings, "Banane");
+
+
     // Tests des fonctions 'all_of', 'any_of' et 'none_of'.
     {
-        vector even_suite = make_vector(sizeof(int), 3, growth_factor_doubling);
-
-        // even_suite = [2, 4, 8]
-        int n = 2;
-        for(iterator i = begin(&even_suite); compare(i, end(&even_suite)) != 0; increment(&i, 1))
-        {
-            set(i, &n);
-            n *= 2;
-        }
-
         iterator b = begin(&even_suite), e = end(&even_suite);
         TEST(all_of(b, e, is_even) == true);
         TEST(any_of(b, e, is_even) == true);
@@ -103,21 +112,11 @@ int main()
         TEST(any_of(b, e, less_than_five) == true);
         TEST(none_of(b, e, less_than_five) == false);
 
-        destroy(&even_suite);
-
-
-        vector strings = make_vector(sizeof(char[10]), 0, growth_factor_doubling);
-
-        push_back(&strings, "Aboie");
-        push_back(&strings, "Eau");
-        push_back(&strings, "Banane");
 
         b = begin(&strings), e = end(&strings);
         TEST(all_of(b, e, only_vowels) == false);
         TEST(any_of(b, e, only_vowels) == true);
         TEST(none_of(b, e, only_vowels) == false);
-
-        destroy(&strings);
     }
 
     // Tests de la fonction 'for_each'.
@@ -148,42 +147,48 @@ int main()
 
     // Tests des fonctions 'count_if' et 'find_if'.
     {
-        vector even_suite = make_vector(sizeof(int), 3, growth_factor_doubling);
-
-        // even_suite = [2, 4, 8]
-        int n = 2;
-        for(iterator i = begin(&even_suite); compare(i, end(&even_suite)) != 0; increment(&i, 1))
-        {
-            set(i, &n);
-            n *= 2;
-        }
-
         iterator b = begin(&even_suite), e = end(&even_suite);
         TEST(count_if(b, e, less_than_five) == 2);
 
-        iterator f = find_if(b, e, is_odd);
-        TEST(compare(f, end(&even_suite)) == 0);
-
-        f = find_if(b, e, less_than_five);
+        iterator f = find_if(b, e, less_than_five);
         TEST(compare(f, begin(&even_suite)) == 0);
 
-        destroy(&even_suite);
+        f = find_if(b, e, is_odd);
+        TEST(compare(f, end(&even_suite)) == 0);
 
-
-        vector strings = make_vector(sizeof(char[10]), 0, growth_factor_doubling);
-
-        push_back(&strings, "Aboie");
-        push_back(&strings, "Eau");
-        push_back(&strings, "Banane");
 
         b = begin(&strings), e = end(&strings);
         TEST(count_if(b, e, only_vowels) == 1);
 
         f = find_if(b, e, only_vowels);
         TEST(compare(f, at(&strings, 1)) == 0);
-
-        destroy(&strings);
     }
+
+    // Tests des fonctions 'copy' et 'copy_if'.
+    {
+        vector copy_even_suite = make_vector(sizeof(int), size(even_suite), growth_factor_doubling);
+
+        copy(begin(&even_suite), end(&even_suite), begin(&copy_even_suite));
+        for(size_t i = 0; i != size(even_suite); ++i)
+        {
+            TEST(*(int*)value(at(&copy_even_suite, i)) == *(int*)value(at(&even_suite, i)));
+        }
+
+        size_t const small_count = count_if(begin(&even_suite), end(&even_suite), less_than_five);
+        vector small_even_suite = make_vector(sizeof(int), small_count, growth_factor_doubling);
+
+        copy_if(begin(&even_suite), end(&even_suite), begin(&small_even_suite), less_than_five);
+        TEST(*(int*)value(at(&small_even_suite, 0)) == *(int*)value(at(&even_suite, 0)));
+        TEST(*(int*)value(at(&small_even_suite, 1)) == *(int*)value(at(&even_suite, 1)));
+
+        vector just_vowels = make_vector(sizeof(char[10]), 1, growth_factor_doubling);
+        copy_if(begin(&strings), end(&strings), begin(&just_vowels), only_vowels);
+
+        TEST(strcmp((char*)value(at(&strings, 1)), (char*)value(at(&just_vowels, 0))) == 0);
+    }
+
+    destroy(&even_suite);
+    destroy(&strings);
 
     print_summary();
 

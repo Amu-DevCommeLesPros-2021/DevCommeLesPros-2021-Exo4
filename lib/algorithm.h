@@ -37,6 +37,7 @@ iterator find_if(iterator first, iterator last, bool (*predicate)(void const* da
 // Copie la valeur des éléments entre 'first' et 'last' non-inclus dans 
 // l'élément de 'destination'.
 // L'itérateur 'destination' est incrémenté de 1 à chaque fois.
+// On présume que la destination est de taille suffisante.
 // Renvoie l'itérateur 'destination' final.
 iterator copy(iterator first, iterator last, iterator destination);
 
