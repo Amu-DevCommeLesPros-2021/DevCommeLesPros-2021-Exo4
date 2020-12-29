@@ -95,6 +95,10 @@ int main()
         TEST(any_of(b, e, is_even) == true);
         TEST(none_of(b, e, is_even) == false);
 
+        TEST(all_of(b, e, is_odd) == false);
+        TEST(any_of(b, e, is_odd) == false);
+        TEST(none_of(b, e, is_odd) == true);
+
         TEST(all_of(b, e, less_than_five) == false);
         TEST(any_of(b, e, less_than_five) == true);
         TEST(none_of(b, e, less_than_five) == false);
@@ -102,11 +106,11 @@ int main()
         destroy(&even_suite);
 
 
-        vector strings = make_vector(sizeof(char[10]), 3, growth_factor_doubling);
+        vector strings = make_vector(sizeof(char[10]), 0, growth_factor_doubling);
 
-        set(at(&strings, 0), "Aboie");
-        set(at(&strings, 1), "Eau");
-        set(at(&strings, 2), "Banane");
+        push_back(&strings, "Aboie");
+        push_back(&strings, "Eau");
+        push_back(&strings, "Banane");
 
         b = begin(&strings), e = end(&strings);
         TEST(all_of(b, e, only_vowels) == false);
@@ -116,30 +120,69 @@ int main()
         destroy(&strings);
     }
 
-    // Tests de lea focntion 'for_each'.
+    // Tests de la fonction 'for_each'.
     {
-        vector on_off_on_off = make_vector(sizeof(bool), 0, growth_factor_doubling);
+        vector switches = make_vector(sizeof(bool), 0, growth_factor_doubling);
 
         // on_off_on_off = [true, false, true, false]
         bool flip = true;
-        push_back(&on_off_on_off, &flip);
-        flip = false;
-        push_back(&on_off_on_off, &flip);
-        flip = true;
-        push_back(&on_off_on_off, &flip);
-        flip = false;
-        push_back(&on_off_on_off, &flip);
+        push_back(&switches, &flip);
+        flip = !flip;
+        push_back(&switches, &flip);
+        flip = !flip;
+        push_back(&switches, &flip);
+        flip = !flip;
+        push_back(&switches, &flip);
 
         // on_off_on_off = [false, true, false, true]
-        iterator b = begin(&on_off_on_off), e = end(&on_off_on_off);
+        iterator b = begin(&switches), e = end(&switches);
         for_each(b, e, negate);
 
-        TEST(*(bool*)value(at(&on_off_on_off, 0)) == false);
-        TEST(*(bool*)value(at(&on_off_on_off, 1)) == true);
-        TEST(*(bool*)value(at(&on_off_on_off, 2)) == false);
-        TEST(*(bool*)value(at(&on_off_on_off, 3)) == true);
+        TEST(*(bool*)value(at(&switches, 0)) == false);
+        TEST(*(bool*)value(at(&switches, 1)) == true);
+        TEST(*(bool*)value(at(&switches, 2)) == false);
+        TEST(*(bool*)value(at(&switches, 3)) == true);
 
-        destroy(&on_off_on_off);
+        destroy(&switches);
+    }
+
+    // Tests des fonctions 'count_if' et 'find_if'.
+    {
+        vector even_suite = make_vector(sizeof(int), 3, growth_factor_doubling);
+
+        // even_suite = [2, 4, 8]
+        int n = 2;
+        for(iterator i = begin(&even_suite); compare(i, end(&even_suite)) != 0; increment(&i, 1))
+        {
+            set(i, &n);
+            n *= 2;
+        }
+
+        iterator b = begin(&even_suite), e = end(&even_suite);
+        TEST(count_if(b, e, less_than_five) == 2);
+
+        iterator f = find_if(b, e, is_odd);
+        TEST(compare(f, end(&even_suite)) == 0);
+
+        f = find_if(b, e, less_than_five);
+        TEST(compare(f, begin(&even_suite)) == 0);
+
+        destroy(&even_suite);
+
+
+        vector strings = make_vector(sizeof(char[10]), 0, growth_factor_doubling);
+
+        push_back(&strings, "Aboie");
+        push_back(&strings, "Eau");
+        push_back(&strings, "Banane");
+
+        b = begin(&strings), e = end(&strings);
+        TEST(count_if(b, e, only_vowels) == 1);
+
+        f = find_if(b, e, only_vowels);
+        TEST(compare(f, at(&strings, 1)) == 0);
+
+        destroy(&strings);
     }
 
     print_summary();

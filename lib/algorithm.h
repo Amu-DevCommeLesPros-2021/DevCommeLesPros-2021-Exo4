@@ -26,7 +26,7 @@ void for_each(iterator first, iterator last, void (*unary_operation)(void* data)
 
 // Renvoie le nombre d'éléments de 'first' à 'last' non-inclus pour lesquels
 // 'unaray_operation(i->element)' renvoie 'vrai'.
-size_t count_if(iterator first, iterator last, bool (*unary_operation)(void* data));
+size_t count_if(iterator first, iterator last, bool (*unary_operation)(void const* data));
 
 // Renvoie le premier itérateur entre 'first' et 'last' non-inclus pour lequel 
 // la fonction 'predicate' renvoie 'vrai'.

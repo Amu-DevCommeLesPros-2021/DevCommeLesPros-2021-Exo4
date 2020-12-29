@@ -3,8 +3,12 @@
 #include <stdbool.h>
 
 // Présume que 'data' contient un 'int'.
-// Renvoie 'vrai' is la valeur est paire, sinon faux.
+// Renvoie 'vrai' is la valeur est paire, sinon 'faux'.
 bool is_even(void const* data);
+
+// Présume que 'data' contient un 'int'.
+// Renvoie 'vrai' is la valeur est impaire, sinon 'faux'.
+bool is_odd(void const* data);
 
 // Présume que 'data' contient un 'int'.
 // Renvoie 'vrai' si la valeur est inférieure à 5, sinon 'faux'.
