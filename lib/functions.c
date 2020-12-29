@@ -27,3 +27,10 @@ void negate(void* data)
 
 void flip_case(void* data)
 {}
+
+void* counter()
+{
+    static int c = 0;
+    ++c;
+    return &c;
+}

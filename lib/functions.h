@@ -26,3 +26,6 @@ void negate(void* data);
 // Modifie la chaîne donnée avec les minuscules changées pour des majuscules et 
 // les majuscules changées pour des minuscules.
 void flip_case(void* data);
+
+// Renvoie le nombre renoyé précédement incrémenté de 1.
+void* counter();

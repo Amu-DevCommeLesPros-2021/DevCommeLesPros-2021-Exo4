@@ -223,6 +223,18 @@ int main()
         TEST(strcmp((char*)value(at(&strings, 2)), "Peau de Banane") == 0);
     }
 
+    // Tests de la fonction 'generate'.
+    {
+        vector linear_suite = make_vector(sizeof(int), 5, growth_factor_doubling);
+
+        // linear_suite = [1, 2, 3, 4, 5]
+        generate(begin(&linear_suite), end(&linear_suite), counter);
+        for(int n = 0; n != size(linear_suite); ++n)
+        {
+            TEST(*(int*)value(at(&linear_suite, n)) == n + 1);
+        }
+    }
+
     destroy(&even_suite);
     destroy(&strings);
 
