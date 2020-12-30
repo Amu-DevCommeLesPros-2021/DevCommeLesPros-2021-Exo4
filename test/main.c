@@ -243,8 +243,7 @@ int main()
         generate(begin(&linear_suite), end(&linear_suite), counter);
 
         // linear_suite = [7, 8, 9, 10, 6]
-        iterator second = begin(&linear_suite);
-        increment(&second, 1);
+        iterator second = at(&linear_suite, 1);
         iterator i = rotate(begin(&linear_suite), second, end(&linear_suite));
 
         TEST(*(int*)value(at(&linear_suite, 0)) == 7);
@@ -256,8 +255,7 @@ int main()
         TEST(compare(i, last) == 0);
 
         // linear_suite = [10, 6, 7, 8, 9]
-        iterator fourth = begin(&linear_suite);
-        increment(&fourth, 3);
+        iterator fourth = at(&linear_suite, 3);
         rotate(begin(&linear_suite), fourth, end(&linear_suite));
 
         TEST(*(int*)value(at(&linear_suite, 0)) == 10);
@@ -320,14 +318,14 @@ int main()
         push_back(&numbers, &n);
         push_back(&numbers, &n);
 
-        iterator n_end = unique(begin(&numbers), end(&numbers), is_same);
+        iterator n_end = unique(begin(&numbers), end(&numbers), numerical_compare);
         TEST(compare(n_end, at(&numbers, 1)) == 0);
 
         n = 1;
         push_back(&numbers, &n);
 
         // numbers = [?, ?, 22, 22, 22, 22]
-        n_end = unique(begin(&numbers), end(&numbers), is_same);
+        n_end = unique(begin(&numbers), end(&numbers), numerical_compare);
         
         TEST(compare(n_end, at(&numbers, 2)) == 0);
         TEST(*(int*)value(at(&numbers, 2)) == 22);
@@ -337,7 +335,63 @@ int main()
         sort(begin(&numbers), n_end);
         TEST(*(int*)value(at(&numbers, 0)) == 1);
         TEST(*(int*)value(at(&numbers, 1)) == 22);
+
+        destroy(&numbers);
     }
+
+    // Tests pour 'binary_search' et 'equal_range'.
+    {
+        vector numbers = make_vector(sizeof(int), 0, growth_factor_doubling);
+
+        int n = 1;
+        push_back(&numbers, &n);
+        push_back(&numbers, &n);
+        push_back(&numbers, &n);
+        n = 22;
+        push_back(&numbers, &n);
+        push_back(&numbers, &n);
+        n = 99;
+        push_back(&numbers, &n);
+
+        iterator const b = begin(&numbers), e = end(&numbers);
+        n = 1;
+        TEST(binary_search(b, e, &n, numerical_compare) == true);
+        n = 22;
+        TEST(binary_search(b, e, &n, numerical_compare) == true);
+        n = 99;
+        TEST(binary_search(b, e, &n, numerical_compare) == true);
+        n = 0;
+        TEST(binary_search(b, e, &n, numerical_compare) == false);
+        n = 100;
+        TEST(binary_search(b, e, &n, numerical_compare) == false);
+
+        iterator fourth = at(&numbers, 3);
+        n = 1;
+        TEST(binary_search(fourth, e, &n, numerical_compare) == false);
+        n = 22;
+        TEST(binary_search(b, fourth, &n, numerical_compare) == false);
+
+        n = 1;
+        iterator_interval ii = equal_range(b, e, &n, numerical_compare);
+        TEST(compare(ii.begin, b) == 0);
+        TEST(compare(ii.end, fourth) == 0);
+
+        iterator sixth = at(&numbers, 5);
+        n = 99;
+        ii = equal_range(b, e, &n, numerical_compare);
+        TEST(compare(ii.begin, sixth) == 0);
+        TEST(compare(ii.end, e) == 0);
+
+        n = -1;
+        ii = equal_range(b, e, &n, numerical_compare);
+        TEST(compare(ii.end, b) == 0);
+
+        n = 100;
+        ii = equal_range(b, e, &n, numerical_compare);
+        TEST(compare(ii.begin, e) == 0);
+
+        destroy(&numbers);
+    } 
 
     destroy(&even_suite);
     destroy(&strings);

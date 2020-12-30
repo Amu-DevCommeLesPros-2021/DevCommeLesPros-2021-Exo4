@@ -70,24 +70,24 @@ int compare_int(const void* a, const void* b)
 void sort(iterator first, iterator last)
 {}
 
-void sort_by(iterator first, iterator last, int (*compare)(void const* a, void const* b))
+void sort_by(iterator first, iterator last, int (*comparator)(void const* a, void const* b))
 {}
 
-iterator unique(iterator first, iterator last, bool (*predicate)(void const* a, void const* b))
+iterator unique(iterator first, iterator last, int (*comparator)(void const* a, void const* b))
 {
     return last;
 }
 
-bool binary_search(iterator first, iterator last, void const* value, bool (*compare)(void const* a, void const* b))
+bool binary_search(iterator first, iterator last, void const* value, int (*comparator)(void const* a, void const* b))
 {
     return false;
 }
 
-iterator_interval equal_range(iterator first, iterator last, void const* value, bool (*compare)(void const* a, void const* b))
+iterator_interval equal_range(iterator first, iterator last, void const* value, int (*comparator)(void const* a, void const* b))
 {
     return (iterator_interval){
-        .begin = first,
-        .end = last
+        .begin = (iterator){.element = NULL},
+        .end = (iterator){.element = NULL}
     };
 }
 

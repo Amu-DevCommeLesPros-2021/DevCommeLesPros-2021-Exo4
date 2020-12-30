@@ -80,19 +80,21 @@ void reverse(iterator first, iterator last);
 void sort(iterator first, iterator last);
 
 // Trie les éléments entre 'first' et 'last' non-inclus en comparant avec 
-// la fonction donnée. 'compare(a, b)' renvoie un nombre négatif si 'a' précède 'b',
+// la fonction donnée. 'comparator(a, b)' renvoie un nombre négatif si 'a' précède 'b',
 // renvoie un nombre positif si 'b' précède 'a' et renvoie zéro si 'a' égale 'b'.
-void sort_by(iterator first, iterator last, int (*compare)(void const* a, void const* b));
+void sort_by(iterator first, iterator last, int (*comparator)(void const* a, void const* b));
 
 // Déplace tout les duplicatas des éléments entre 'first' et 'last' non-inclus 
-// à la fin de l'intervalle. 'predicate(a, b)' renvoie 'vrai' si 'a' est un duplicata de 'b'.
+// à la fin de l'intervalle. 'comparator(a, b)' renvoie un nombre négatif si 'a' précède 'b',
+// renvoie un nombre positif si 'b' précède 'a' et renvoie zéro si 'a' égale 'b'.
 // Renvoie un itérateur vers le premier duplicata une fois les déplacements effectués.
-iterator unique(iterator first, iterator last, bool (*predicate)(void const* a, void const* b));
+iterator unique(iterator first, iterator last, int (*comparator)(void const* a, void const* b));
 
 // Renvoie 'vrai' si entre 'first' et 'last' non-inclus se trouve un élément pour 
-// lequel 'compare(value, i->element)' renvoie 'vrai'.
+// égale à 'value. 'comparator(a, b)' renvoie un nombre négatif si 'a' précède 'b',
+// renvoie un nombre positif si 'b' précède 'a' et renvoie zéro si 'a' égale 'b'.
 // Les éléments entre 'first' et 'last' sont triés et cette fonction opère une recherche binaire.
-bool binary_search(iterator first, iterator last, void const* value, bool (*compare)(void const* a, void const* b));
+bool binary_search(iterator first, iterator last, void const* value, int (*comparator)(void const* a, void const* b));
 
 typedef struct iterator_interval
 {
@@ -100,9 +102,10 @@ typedef struct iterator_interval
 } iterator_interval;
 
 // Renvoie l'intervalle à l'intérieur de l'intervalle entre 'first et 'last' 
-// non-inclus pour laquelle 'compare(value, i->element)' renvoie 'vrai'.
+// non-inclus des éléments égaux à 'value'. 'comparator(a, b)' renvoie un nombre négatif si 'a' précède 'b',
+// renvoie un nombre positif si 'b' précède 'a' et renvoie zéro si 'a' égale 'b'.
 // Les éléments entre 'first' et 'last' sont triés.
-iterator_interval equal_range(iterator first, iterator last, void const* value, bool (*compare)(void const* a, void const* b));
+iterator_interval equal_range(iterator first, iterator last, void const* value, int (*comparator)(void const* a, void const* b));
 
 // Copie vers 'destination' les éléments qui se trouvent dans 
 // l'intervalle 'first1' et 'last1' mais qui ne se trouvent pas dans 
