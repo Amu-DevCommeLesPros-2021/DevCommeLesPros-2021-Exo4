@@ -10,7 +10,7 @@
 #include <string.h>
 
 // Nombre total de tests.
-int const tests_total = 124;
+int const tests_total = 87;
 
 // Nombre total de tests exécutés. 
 int tests_executed = 0;
