@@ -18,6 +18,10 @@ bool less_than_five(void const* data);
 // Renvoie 'vrai' si 'data' ne contient que des voyelles minuscules ou majuscules.
 bool only_vowels(void const* data);
 
+// Présume que 'data' contient un 'int'.
+// Renvoie 'vrai' si 'a' égale 'b'.
+bool is_same(void const* a, void const* b);
+
 // Présume que 'data' contient un 'bool'.
 // Modifie la valeur de 'data' pour son contraire.
 void negate(void* data);
@@ -27,7 +31,8 @@ void negate(void* data);
 // les majuscules changées pour des minuscules.
 void flip_case(void* data);
 
-// Renvoie le nombre renoyé précédement incrémenté de 1.
+// Renvoie le nombre renvoyé lors d'un précédent appel à 'counter' incrémenté de 1.
+// Le premier appel de 'counter' renvoie '1'.
 void* counter();
 
 // Présume que 'a' et 'b' contiennent des chaînes de caractères terminée par '\0'.

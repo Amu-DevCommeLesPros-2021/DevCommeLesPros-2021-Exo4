@@ -22,6 +22,11 @@ bool only_vowels(void const* data)
     return false;
 }
 
+bool is_same(void const* a, void const* b)
+{
+    return *(int*)a == *(int*)b;
+}
+
 void negate(void* data)
 {}
 

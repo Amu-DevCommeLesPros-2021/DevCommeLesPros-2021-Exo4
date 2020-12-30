@@ -9,15 +9,16 @@
 #include <stddef.h>
 
 // Renvoie 'vrai' si la fonction 'predicate' appliquée à tout les éléments de 
-// 'first' à 'last' non-inclus renvoie 'vrai' (c.-à-d. predicate(i->element) == true).
+// 'first' à 'last' non-inclus renvoie 'vrai' pour tout les éléments.
+// (c.-à-d. predicate(i->element) == true).
 bool all_of(iterator first, iterator last, bool (*predicate)(void const* data));
 
 // Renvoie 'vrai' si la fonction 'predicate' appliquée à tout les éléments de 
-// 'first' à 'last' non-inclus renvoie 'vrai' au moins un fois.
+// 'first' à 'last' non-inclus renvoie 'vrai' pour au moins un élément.
 bool any_of(iterator first, iterator last, bool (*predicate)(void const* data));
 
 // Renvoie 'vrai' si la fonction 'predicate' appliquée à tout les éléments de 
-// 'first' à 'last' non-inclus renvoie 'faux'.
+// 'first' à 'last' non-inclus renvoie 'faux' pour tout les éléments.
 bool none_of(iterator first, iterator last, bool (*predicate)(void const* data));
 
 // Applique la fonction 'unary_operation' tout les éléments de 
@@ -83,10 +84,10 @@ void sort(iterator first, iterator last);
 // renvoie un nombre positif si 'b' précède 'a' et renvoie zéro si 'a' égale 'b'.
 void sort_by(iterator first, iterator last, int (*compare)(void const* a, void const* b));
 
-// Déplace tout les duplicata des éléments entre 'first' et 'last' non-inclus 
-// à la fin de l'intervalle.
-// Renvoie un itérateur vers le premier élément dupliqué.
-iterator unique(iterator first, iterator last);
+// Déplace tout les duplicatas des éléments entre 'first' et 'last' non-inclus 
+// à la fin de l'intervalle. 'predicate(a, b)' renvoie 'vrai' si 'a' est un duplicata de 'b'.
+// Renvoie un itérateur vers le premier duplicata une fois les déplacements effectués.
+iterator unique(iterator first, iterator last, bool (*predicate)(void const* a, void const* b));
 
 // Renvoie 'vrai' si entre 'first' et 'last' non-inclus se trouve un élément pour 
 // lequel 'compare(value, i->element)' renvoie 'vrai'.

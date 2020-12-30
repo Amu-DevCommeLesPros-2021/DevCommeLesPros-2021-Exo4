@@ -73,7 +73,7 @@ void sort(iterator first, iterator last)
 void sort_by(iterator first, iterator last, int (*compare)(void const* a, void const* b))
 {}
 
-iterator unique(iterator first, iterator last)
+iterator unique(iterator first, iterator last, bool (*predicate)(void const* a, void const* b))
 {
     return last;
 }

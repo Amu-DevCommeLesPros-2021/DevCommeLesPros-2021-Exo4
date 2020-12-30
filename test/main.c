@@ -310,6 +310,35 @@ int main()
         destroy(&sorted_strings);
     }
 
+    // Tests de la fonction 'unique'.
+    {
+        vector numbers = make_vector(sizeof(int), 0, growth_factor_doubling);
+        int n = 22;
+        push_back(&numbers, &n);
+        push_back(&numbers, &n);
+        push_back(&numbers, &n);
+        push_back(&numbers, &n);
+        push_back(&numbers, &n);
+
+        iterator n_end = unique(begin(&numbers), end(&numbers), is_same);
+        TEST(compare(n_end, at(&numbers, 1)) == 0);
+
+        n = 1;
+        push_back(&numbers, &n);
+
+        // numbers = [?, ?, 22, 22, 22, 22]
+        n_end = unique(begin(&numbers), end(&numbers), is_same);
+        
+        TEST(compare(n_end, at(&numbers, 2)) == 0);
+        TEST(*(int*)value(at(&numbers, 2)) == 22);
+        TEST(*(int*)value(at(&numbers, 5)) == 22);
+
+        // numbers = [1, 22, 22, 22, 22, 22]
+        sort(begin(&numbers), n_end);
+        TEST(*(int*)value(at(&numbers, 0)) == 1);
+        TEST(*(int*)value(at(&numbers, 1)) == 22);
+    }
+
     destroy(&even_suite);
     destroy(&strings);
 
