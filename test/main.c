@@ -393,6 +393,54 @@ int main()
         destroy(&numbers);
     } 
 
+    // Tests des fonctions 'set_difference' et 'set_intersection'.
+    {
+        vector xbox = make_vector(sizeof(char[longueur_chaine]), 0, growth_factor_doubling);
+        push_back(&xbox, "Assassin's Creed Valhalla");
+        push_back(&xbox, "Call of Duty: Modern Warfare");
+        push_back(&xbox, "Cyberpunk 2077");
+        push_back(&xbox, "DOOM Eternal");
+        push_back(&xbox, "FIFA 21");
+        push_back(&xbox, "Forza Horizon 4");
+        push_back(&xbox, "Halo 5: Guardians");
+        push_back(&xbox, "Rocket League");
+
+        vector ps = make_vector(sizeof(char[longueur_chaine]), 0, growth_factor_doubling);
+        push_back(&ps, "Assassin's Creed Valhalla");
+        push_back(&ps, "Call of Duty: Modern Warfare");
+        push_back(&ps, "Cyberpunk 2077");
+        push_back(&ps, "FIFA 21");
+        push_back(&ps, "God of War");
+        push_back(&ps, "Rocket League");
+        push_back(&ps, "Spider-Man");
+        push_back(&ps, "The Last of Us Part II");
+
+        // Ce qui est ennuyeux ici c'est qu'on doit apparement connaître d'avance 
+        // la taille du vecteur résultant. Mais... est-ce une fatalité ?
+        // Y aurait-il moyen d'aggrandir automatiquement le vecteur résultant 
+        // sans pour autant changer la signature de la fonction ?
+        vector ps_exclusives = make_vector(sizeof(char[longueur_chaine]), 3, growth_factor_doubling);
+        iterator i = set_difference(begin(&ps), end(&ps), begin(&xbox), end(&xbox), begin(&ps_exclusives), lexicographical_compare);
+
+        TEST(strcmp((char*)value(at(&ps_exclusives, 0)), "God of War") == 0);
+        TEST(strcmp((char*)value(at(&ps_exclusives, 1)), "Spider-Man") == 0);
+        TEST(strcmp((char*)value(at(&ps_exclusives, 2)), "The Last of Us Part II") == 0);
+        TEST(compare(i, end(&ps_exclusives)) == 0);
+        
+        vector multiplatforms = make_vector(sizeof(char[longueur_chaine]), 5, growth_factor_doubling);
+        i = set_intersection(begin(&xbox), end(&xbox), begin(&ps), end(&ps), begin(&multiplatforms), lexicographical_compare);
+
+        TEST(strcmp((char*)value(at(&multiplatforms, 0)), "Assassin's Creed Valhalla") == 0);
+        TEST(strcmp((char*)value(at(&multiplatforms, 2)), "Cyberpunk 2077") == 0);
+        TEST(strcmp((char*)value(at(&multiplatforms, 4)), "Rocket League") == 0);
+        TEST(compare(i, end(&multiplatforms)) == 0);
+
+        destroy(&multiplatforms);
+        destroy(&ps_exclusives);
+        destroy(&ps);
+        destroy(&xbox);
+    }
+
     destroy(&even_suite);
     destroy(&strings);
 

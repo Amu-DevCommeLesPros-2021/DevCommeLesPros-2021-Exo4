@@ -91,12 +91,16 @@ iterator_interval equal_range(iterator first, iterator last, void const* value, 
     };
 }
 
-iterator set_difference(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, bool (*compare)(void const* a, void const* b))
+iterator set_difference(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, int (*comparator)(void const* a, void const* b))
 {
-    return destination;
+    return (iterator){
+        .element = NULL
+        };
 }
 
-iterator set_intersection(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, bool (*compare)(void const* a, void const* b))
+iterator set_intersection(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, int (*comparator)(void const* a, void const* b))
 {
-    return destination;
+    return (iterator){
+        .element = NULL
+        };
 }

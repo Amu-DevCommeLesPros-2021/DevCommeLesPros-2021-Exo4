@@ -110,18 +110,16 @@ iterator_interval equal_range(iterator first, iterator last, void const* value, 
 // Copie vers 'destination' les éléments qui se trouvent dans 
 // l'intervalle 'first1' et 'last1' mais qui ne se trouvent pas dans 
 // l'intervalle 'first2' et 'last2'.
-// La fonction 'compare(a, b)' retourne 'vrai' si 'a < b'.
 // Les éléments entre 'first1' et 'last1' sont triés.
 // Les éléments entre 'first2' et 'last2' sont triés.
 // On présume que la destination est de taille suffisante.
 // Renvoie l'itérateur 'destination' final.
-iterator set_difference(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, bool (*compare)(void const* a, void const* b));
+iterator set_difference(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, int (*comparator)(void const* a, void const* b));
 
 // Copie vers 'destination' les éléments qui se trouvent à la fois dans 
 // l'intervalle 'first1' et 'last1' et dans l'intervalle 'first2' et 'last2'.
-// La fonction 'compare(a, b)' retourne 'vrai' si 'a < b'.
 // Les éléments entre 'first1' et 'last1' sont triés.
 // Les éléments entre 'first2' et 'last2' sont triés.
 // On présume que la destination est de taille suffisante.
 // Renvoie l'itérateur 'destination' final.
-iterator set_intersection(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, bool (*compare)(void const* a, void const* b));
+iterator set_intersection(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, int (*comparator)(void const* a, void const* b));
