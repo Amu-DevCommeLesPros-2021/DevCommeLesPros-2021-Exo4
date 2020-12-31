@@ -186,6 +186,10 @@ int main()
         copy_if(begin(&strings), end(&strings), begin(&just_vowels), only_vowels);
 
         TEST(strcmp((char*)value(at(&strings, 1)), (char*)value(at(&just_vowels, 0))) == 0);
+
+        destroy(&just_vowels);
+        destroy(&small_even_suite);
+        destroy(&copy_even_suite);
     }
 
     // Tests de la fonction 'fill'.
@@ -206,6 +210,7 @@ int main()
             TEST(*(int*)value(at(&tens_and_twenties, n)) == 20);
         }
 
+        destroy(&tens_and_twenties);
     }
 
     // Tests de la fonction 'transform'.
@@ -221,6 +226,8 @@ int main()
         TEST(strcmp((char*)value(at(&strings, 0)), "Peau") == 0);
         TEST(strcmp((char*)value(at(&strings, 1)), "Eau") == 0);
         TEST(strcmp((char*)value(at(&strings, 2)), "Peau de Banane") == 0);
+
+        destroy(&bizarro);
     }
 
     // Tests de la fonction 'generate'.
@@ -233,6 +240,8 @@ int main()
         {
             TEST(*(int*)value(at(&linear_suite, n)) == n + 1);
         }
+
+        destroy(&linear_suite);
     }
 
     // Tests pour les fonction 'rotate' et 'reverse'.
@@ -268,6 +277,8 @@ int main()
         TEST(*(int*)value(at(&linear_suite, 0)) == 9);
         TEST(*(int*)value(at(&linear_suite, 1)) == 8);
         TEST(*(int*)value(at(&linear_suite, 4)) == 10);
+
+        destroy(&linear_suite);
     }
 
     // Tests des fonctions 'sort' et 'sort_by'.
@@ -399,9 +410,9 @@ int main()
         push_back(&xbox, "Assassin's Creed Valhalla");
         push_back(&xbox, "Call of Duty: Modern Warfare");
         push_back(&xbox, "Cyberpunk 2077");
-        push_back(&xbox, "DOOM Eternal");
         push_back(&xbox, "FIFA 21");
         push_back(&xbox, "Forza Horizon 4");
+        push_back(&xbox, "Gears 5");
         push_back(&xbox, "Halo 5: Guardians");
         push_back(&xbox, "Rocket League");
 
