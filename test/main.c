@@ -22,7 +22,7 @@ int tests_successful = 0;
 
 // Incrémente le nombre de test exécutés de 1.
 // Si le test réussi, incrémente le nombre de tests réussis de 1.
-#define TEST(x) printf("%s:%d:0 %*s : ", __FILE__, __LINE__, __LINE__ < 100 ? -41 : -40, #x); \
+#define TEST(x) printf("%s:%d:0 %*s : ", __FILE__, __LINE__, __LINE__ < 100 ? -61 : -60, #x); \
                 tests_executed += 1;        \
                 if(x)                       \
                 {                           \
@@ -55,7 +55,7 @@ int tests_successful = 0;
 // Affiche le sommaire des résultats des tests.
 void print_summary()
 {
-    printf("---\n%-20s : %d\n%-20s : %3d\n%-20s : %3d\n", "Nombre de tests", tests_total, "Tests executes", tests_executed, "Tests reussis", tests_successful);
+    printf("---\n%-20s : %3d\n%-20s : %3d\n%-20s : %3d\n", "Nombre de tests", tests_total, "Tests executes", tests_executed, "Tests reussis", tests_successful);
 }
 
 // Fonction à executer lors d'une segmentation fault.
@@ -469,6 +469,9 @@ int main()
         fclose(f_generalistes);
 
         TEST_FILE("generalistes.txt", "test/generalistes.txt");
+
+        destroy(&generalistes);
+        destroy(&docteurs);
     }
 
     destroy(&even_suite);
