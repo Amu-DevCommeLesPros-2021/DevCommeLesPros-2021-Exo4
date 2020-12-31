@@ -1,0 +1,4 @@
+1,Pignon,10,0
+4,Tarain,40,1
+6,Douleur,8,2
+8,Soufrance,40,2

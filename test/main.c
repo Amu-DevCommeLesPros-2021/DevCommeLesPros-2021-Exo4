@@ -1,4 +1,5 @@
 #include "algorithm.h"
+#include "db.h"
 #include "functions.h"
 #include "vector.h"
 
@@ -10,7 +11,7 @@
 #include <string.h>
 
 // Nombre total de tests.
-int const tests_total = 87;
+int const tests_total = 88;
 
 // Nombre total de tests exécutés. 
 int tests_executed = 0;
@@ -450,6 +451,24 @@ int main()
         destroy(&ps_exclusives);
         destroy(&ps);
         destroy(&xbox);
+    }
+
+    // Tests de lecture d'une table de base de donnée médicale, transformation et écriture.
+    {
+        FILE *f_docteurs = fopen("test/docteurs.txt", "r");
+        vector docteurs = lecture_table(f_docteurs);
+        fclose(f_docteurs);
+
+        size_t const n_generalistes = count_if(begin(&docteurs), end(&docteurs), est_generaliste);
+
+        vector generalistes = make_vector(sizeof(docteur), n_generalistes, growth_factor_doubling);
+        copy_if(begin(&docteurs), end(&docteurs), begin(&generalistes), est_generaliste);
+
+        FILE *f_generalistes = fopen("generalistes.txt", "w");
+        ecriture_table(f_generalistes, &generalistes);
+        fclose(f_generalistes);
+
+        TEST_FILE("generalistes.txt", "test/generalistes.txt");
     }
 
     destroy(&even_suite);

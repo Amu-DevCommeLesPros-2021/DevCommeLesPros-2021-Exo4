@@ -1,0 +1,8 @@
+1,Pignon,10,0
+2,Perrin,4,0
+3,Richard,16,1
+4,Tarain,40,1
+5,Acula,1,77
+6,Douleur,8,2
+7,Piqure,4,2
+8,Soufrance,40,2

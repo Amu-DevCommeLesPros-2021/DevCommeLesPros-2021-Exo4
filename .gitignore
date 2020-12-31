@@ -3,4 +3,4 @@ build/**
 evaluation/**
 !evaluation/evaluate.py
 !evaluation/main.c
-db_modifiee.txt
+generalistes.txt

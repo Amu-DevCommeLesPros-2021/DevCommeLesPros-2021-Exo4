@@ -1,5 +1,7 @@
 build/libalgorithm.a:
 
+build/libdb.a:
+
 build/libfunctions.a:
 
 build/libvector.a:
