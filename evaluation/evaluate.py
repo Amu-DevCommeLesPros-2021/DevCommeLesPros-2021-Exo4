@@ -18,6 +18,8 @@ ARGPARSER.add_argument('-m', '--moss-id', dest='mossid', action='store',
                        help='MOSS identifier. (See http://theory.stanford.edu/~aiken/moss/ to obtain an identifier.)')
 ARGPARSER.add_argument('-o', '--show-output', dest='show_output', action='store_true',
                        help='Prints to screen the output of the programs evaluated.')
+ARGPARSER.add_argument('-v', '--valgrind', dest='valgrind', action='store_true',
+                       help='Run valgrind on program and show its output.')
 ARGS = ARGPARSER.parse_args()
 
 # Verify timestamp format, if present.
@@ -51,9 +53,13 @@ def evaluate_repo(name, timestamp=None):
 
             subprocess.run(['git checkout ' + rev_list_cmd.stdout], cwd=local_depot_path, shell=True, check=True, stderr=subprocess.PIPE)
 
-        # Copy main.c with all its tests enabled and vector_api.h to repo.
+        # Copy main.c with all its tests enabled and intact header files to repo.
         shutil.copy('main.c', local_depot_path + '/test')
-        shutil.copy('../lib/vector_api.h', local_depot_path + '/lib')
+        shutil.copy('../lib/algorithm.h',   local_depot_path + '/lib')
+        shutil.copy('../lib/db.h',          local_depot_path + '/lib')
+        shutil.copy('../lib/functions.h',   local_depot_path + '/lib')
+        shutil.copy('../lib/vector_api.h',  local_depot_path + '/lib')
+        shutil.copy('../lib/vector.h',      local_depot_path + '/lib')
 
         # Invoke make check.
         run_program_cmd = subprocess.run('make check', cwd=local_depot_path, shell=True, check=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE, text=True, timeout=3)
@@ -63,6 +69,10 @@ def evaluate_repo(name, timestamp=None):
             print(run_program_cmd.stdout)
         else:
             print("\n".join(run_program_cmd.stdout.splitlines()[-3:]))
+
+        # Show valgrind analysis if requested.
+        if ARGS.valgrind:
+            subprocess.run('valgrind --log-fd=2 ./build/test 1>/dev/null', cwd=local_depot_path, shell=True)
 
         # Show git log if requested.
         if ARGS.show_log:
@@ -107,8 +117,14 @@ if __name__ == "__main__":
 
             moss = mosspy.Moss(ARGS.mossid, 'c')
             moss.setIgnoreLimit(3)
-            moss.addBaseFile('../liste.c')
-            moss.addFilesByWildcard('./**/liste.c')
+            moss.addBaseFile('../algorithm.c')
+            moss.addBaseFile('../db.c')
+            moss.addBaseFile('../functions.c')
+            moss.addBaseFile('../vector_api.c')
+            moss.addFilesByWildcard('./**/algorithm.c')
+            moss.addFilesByWildcard('./**/db.c')
+            moss.addFilesByWildcard('./**/functions.c')
+            moss.addFilesByWildcard('./**/vector_api.c')
             url = moss.send()
             print(url)
             if os.path.exists('moss/'):
