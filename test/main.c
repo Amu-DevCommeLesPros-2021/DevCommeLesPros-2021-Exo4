@@ -416,5 +416,5 @@ int main()
     destroy(&even_suite);
     destroy(&strings);
 
-    return tests_total - tests_successful;
+    return tests_executed - tests_successful;
 }
