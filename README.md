@@ -9,6 +9,9 @@ Modèle de départ pour les exercices de synthèse du cours.
 - [Préparation](#pr%C3%A9paration)
 - [Objectif](#objectif)
 - [Instructions de travail](#instructions-de-travail)
+    - [Ce qui est permis](#ce-qui-est-permis)
+    - [Ce qui ne l'est pas](#ce-qui-ne-lest-pas)
+    - [En tout temps](#en-tout-temps)
 - [Évaluation](#%C3%A9valuation)
 - [Questions-Réponses](#questions-r%C3%A9ponses)
     - [«J'ai un problème !»](#%C2%ABjai-un-probl%C3%A8me-%C2%BB)
@@ -49,17 +52,21 @@ Vous devrez :
 
 Pour cet exercice, suivez les mêmes instructions de travail que pour l'[exercice précédent](https://github.com/Amu-DevCommeLesPros-2021/DevCommeLesPros-2021-Exo3#instructions-de-travail).
 
-Il vous est permis :
+### Ce qui est permis
+
 - De modifier le fichier `README.md` pour modifier l'URL du badge en en-tête.
 - De modifier le fichier `makefile` pour compiler et lier les cibles prédéfinies et ajouter d'autres cibles si nécessaire.
 - De reprendre les fichier `lib/vector_types.h` et `lib/vector_api.c` de votre exercice précédent.
 - De modifier les fichiers `lib/algorithm.c`, `lib/db.c` et `lib/functions.c` afin d'implémenter les fonctions qu'il contiennent.
 - De modifier le fichier `test/main.c` pour activer (décommenter) le plus de tests possible.
 
-Il ne vous est pas permis :
-- De modifier les fichiers d'en-tête `lib/algorithm.h`, `lib/db.h`, `lib/functions.h`, `lib/vector.h` et `lib/vector_api.h`.
+### Ce qui ne l'est pas
 
-En tout temps:
+- De modifier les fichiers d'en-tête `lib/algorithm.h`, `lib/db.h`, `lib/functions.h`, `lib/vector.h` et `lib/vector_api.h`.
+- D'utiliser `goto` et d'avoir des «boucles infinies» du style `while(1)`. Pourquoi ? La réponse est [ici](https://github.com/Amu-DevCommeLesPros-2021/DevCommeLesPros-2021-Exo1#pourquoi-pas-de-goto-ou-de-boucles-infinies-).
+
+### En tout temps
+
 - Votre code doit réussir 100% des tests activés (décommentés), même si ce n'est pas l'entièreté des tests, avant d'être intégré dans la branche `master`.
 - Le badge apparaissant tout en haut de ce document doit afficher `passing`.
 
