@@ -5,85 +5,142 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-bool all_of(iterator first, iterator last, bool (*predicate)(void const* data))
+bool all_of(
+    iterator first,
+    iterator last,
+    bool (*predicate)(void const* data))
 {
     return false;
 }
 
-bool any_of(iterator first, iterator last, bool (*predicate)(void const* data))
+bool any_of(
+    iterator first,
+    iterator last,
+    bool (*predicate)(void const* data))
 {
     return false;
 }
 
-bool none_of(iterator first, iterator last, bool (*predicate)(void const* data))
+bool none_of(
+    iterator first,
+    iterator last,
+    bool (*predicate)(void const* data))
 {
     return false;
 }
 
-void for_each(iterator first, iterator last, void (*unary_operation)(void* data))
+void for_each(
+    iterator first,
+    iterator last,
+    void (*unary_operation)(void* data))
 {}
 
-size_t count_if(iterator first, iterator last, bool (*unary_operation)(void const* data))
+size_t count_if(
+    iterator first,
+    iterator last,
+    bool (*unary_operation)(void const* data))
 {
     return 0;
 }
 
-iterator find_if(iterator first, iterator last, bool (*predicate)(void const* data))
+iterator find_if(
+    iterator first,
+    iterator last,
+    bool (*predicate)(void const* data))
 {
     return last;
 }
 
-iterator copy(iterator first, iterator last, iterator destination)
+iterator copy(
+    iterator first,
+    iterator last,
+    iterator destination)
 {
     return destination;
 }
 
-iterator copy_if(iterator first, iterator last, iterator destination, bool (*predicate)(void const* data))
+iterator copy_if(
+    iterator first,
+    iterator last,
+    iterator destination,
+    bool (*predicate)(void const* data))
 {
     return destination;
 }
 
-void fill(iterator first, iterator last, void const* data)
+void fill(
+    iterator first,
+    iterator last,
+    void const* data)
 {}
 
-iterator transform(iterator first, iterator last, iterator destination, void (*unary_operation)(void* data))
+iterator transform(
+    iterator first,
+    iterator last,
+    iterator destination,
+    void (*unary_operation)(void* data))
 {
     return destination;
 }
 
-void generate(iterator first, iterator last, void* (*generator)())
+void generate(
+    iterator first,
+    iterator last,
+    void* (*generator)())
 {}
 
-iterator rotate(iterator first, iterator n_first, iterator last)
+iterator rotate(
+    iterator first,
+    iterator n_first,
+    iterator last)
 {
     return last;
 }
 
-void reverse(iterator first, iterator last)
+void reverse(
+    iterator first,
+    iterator last)
 {}
 
-int compare_int(const void* a, const void* b)
+int compare_int(
+    const void* a,
+    const void* b)
 {
     return *(int*)a - *(int*)b;
 }
 
-void sort(iterator first, iterator last)
+void sort(
+    iterator first,
+    iterator last)
 {}
 
-void sort_by(iterator first, iterator last, int (*comparator)(void const* a, void const* b))
+void sort_by(
+    iterator first,
+    iterator last,
+    int (*comparator)(void const* a, void const* b))
 {}
 
-iterator unique(iterator first, iterator last, int (*comparator)(void const* a, void const* b))
+iterator unique(
+    iterator first,
+    iterator last,
+    int (*comparator)(void const* a, void const* b))
 {
     return last;
 }
 
-bool binary_search(iterator first, iterator last, void const* value, int (*comparator)(void const* a, void const* b))
+bool binary_search(
+    iterator first,
+    iterator last,
+    void const* value,
+    int (*comparator)(void const* a, void const* b))
 {
     return false;
 }
 
-iterator_interval equal_range(iterator first, iterator last, void const* value, int (*comparator)(void const* a, void const* b))
+iterator_interval equal_range(
+    iterator first,
+    iterator last,
+    void const* value, int (*comparator)(void const* a, void const* b))
 {
     return (iterator_interval){
         .begin = (iterator){.element = NULL},
@@ -91,14 +148,26 @@ iterator_interval equal_range(iterator first, iterator last, void const* value, 
     };
 }
 
-iterator set_difference(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, int (*comparator)(void const* a, void const* b))
+iterator set_difference(
+    iterator first1,
+    iterator last1,
+    iterator first2,
+    iterator last2,
+    iterator destination,
+    int (*comparator)(void const* a, void const* b))
 {
     return (iterator){
         .element = NULL
         };
 }
 
-iterator set_intersection(iterator first1, iterator last1, iterator first2, iterator last2, iterator destination, int (*comparator)(void const* a, void const* b))
+iterator set_intersection(
+    iterator first1,
+    iterator last1,
+    iterator first2,
+    iterator last2,
+    iterator destination,
+    int (*comparator)(void const* a, void const* b))
 {
     return (iterator){
         .element = NULL

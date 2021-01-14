@@ -27,9 +27,13 @@ typedef struct docteur
     size_t index_hopital;   // Clé secondaire.
 } docteur;
 
-vector lecture_table(FILE* fichier);
+vector lecture_table(
+    FILE* fichier);
 
-void ecriture_table(FILE* fichier, vector const* db);
+void ecriture_table(
+    FILE* fichier,
+    vector const* db);
 
 // Renvoie 'vrai' si le docteur compte 'MEDECINE_GENERALE' parmi ses spécialités.
-bool est_generaliste(void const* d);
+bool est_generaliste(
+    void const* d);

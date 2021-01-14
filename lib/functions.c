@@ -2,30 +2,36 @@
 
 #include <stdbool.h>
 
-bool is_even(void const* data)
+bool is_even(
+    void const* data)
 {
     return *(int*)data % 2 == 0;
 }
 
-bool is_odd(void const* data)
+bool is_odd(
+    void const* data)
 {
     return false;
 }
 
-bool less_than_five(void const* data)
+bool less_than_five(
+    void const* data)
 {
     return *(int*)data < 5;
 }
 
-bool only_vowels(void const* data)
+bool only_vowels(
+    void const* data)
 {
     return false;
 }
 
-void negate(void* data)
+void negate(
+    void* data)
 {}
 
-void flip_case(void* data)
+void flip_case(
+    void* data)
 {}
 
 void* counter()
@@ -35,12 +41,16 @@ void* counter()
     return &c;
 }
 
-int numerical_compare(void const* a, void const* b)
+int numerical_compare(
+    void const* a,
+    void const* b)
 {
     return *(int*)a - *(int*)b;
 }
 
-int lexicographical_compare(void const* a, void const* b)
+int lexicographical_compare(
+    void const* a,
+    void const* b)
 {
     return 0;
 }

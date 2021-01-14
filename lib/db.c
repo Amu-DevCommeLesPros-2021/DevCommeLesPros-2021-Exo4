@@ -7,7 +7,8 @@
 #include <stdio.h>
 
 
-vector lecture_table(FILE* file)
+vector lecture_table(
+    FILE* file)
 {
     return (vector){
         .data = NULL,
@@ -15,10 +16,13 @@ vector lecture_table(FILE* file)
     };
 }
 
-void ecriture_table(FILE* file, vector const* db)
+void ecriture_table(
+    FILE* file,
+    vector const* db)
 {}
 
-bool est_generaliste(void const* d)
+bool est_generaliste(
+    void const* d)
 {
     return false;
 }
